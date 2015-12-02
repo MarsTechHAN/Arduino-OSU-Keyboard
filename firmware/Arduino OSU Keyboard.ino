@@ -17,7 +17,7 @@
 
 
 /*============DEVICE BEHAVIOR CONFIGURURATION==========================*/
-#define BYPASS_PASSIVE_DELAY 1000 // The asynchronous rolling delay(count by times)
+#define BYPASS_PASSIVE_DELAY 50 // The asynchronous rolling delay(count by times)
 
 #define BYPASS_TIMER_ISR 1 // BYPASS TIME CORRECTER
 
@@ -169,7 +169,7 @@ void delayMs(unsigned int ms) {
 //*************************************************************************************************
 void loop() {
   
-  if(!(loop_route_time%10)) UsbKeyboard.update();
+  UsbKeyboard.update();
 
   ++loop_route_time;
   
@@ -245,6 +245,7 @@ void loop() {
 #endif
     }
     else{
+      fore_KET_BT1_RUNTIME = loop_route_time;
 #ifdef ENABLE_DEBUG_OUTPUT
       Serial.println("BYPASS_PASSIVE_LOOP NOT REACH CRITICAL");
       Serial.println("EVENT INGORED");
@@ -270,6 +271,7 @@ void loop() {
 #endif
     }
     else{
+      fore_KET_BT2_RUNTIME = loop_route_time;
 #ifdef ENABLE_DEBUG_OUTPUT
       Serial.println("BYPASS_PASSIVE_LOOP NOT REACH CRITICAL");
       Serial.println("EVENT INGORED");
@@ -295,6 +297,7 @@ void loop() {
 #endif
     }
     else{
+      fore_KET_BT3_RUNTIME = loop_route_time;
 #ifdef ENABLE_DEBUG_OUTPUT
       Serial.println("BYPASS_PASSIVE_LOOP NOT REACH CRITICAL");
       Serial.println("EVENT INGORED");
@@ -320,7 +323,7 @@ void loop() {
     Serial.println("USB STATUS UPDATA FLAG CLEAR");
     Serial.println("");
 #endif
-  }
+  }else{delayMicroseconds(100);}
   
 }
 //*************************************************************************************************
